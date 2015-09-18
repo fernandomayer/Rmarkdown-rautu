@@ -51,6 +51,10 @@ opts_chunk$set(comment = NA,
                bootstrap.panel = TRUE)
 ```
 
+## Prefácio
+
+* Básico, não superficial
+
 ## Como a ciência funciona
 
 * Replicação
@@ -402,20 +406,19 @@ Veja o arquivo de exemplo [Exemplo.md](Exemplo.md).
 Para converter um documento Markdown em HTML é necessário um
 **conversor**.
 
-* O conversor padrão do Markdown é escrito em Perl, e pode ser integrado
-  em diversas ferramentas
-* É aí que entra o PANDOC
+O conversor padrão do Markdown é escrito em Perl, e pode ser integrado
+em diversas ferramentas, mas não é apropriado para usuários comuns.
 
 Para testar a conversão do documento, copie e cole na página do
 [Dingus][].
 
 ## Pandoc
 
-O Pandoc é um conversor extremamente versátil, capaz de converter
+O [Pandoc][] é um conversor extremamente versátil, capaz de converter
 diversos formatos, incluindo Markdown para HTML.
 
-Se o Pandoc estiver instalado no seu sistema é possível converter o
-documento com
+Se o Pandoc estiver instalado no seu sistema (Linux) é possível
+converter o documento com
 
 ```{sh, eval=FALSE}
 pandoc -f markdown -t html Exemplo.md -o Exemplo.html
