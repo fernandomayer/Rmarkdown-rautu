@@ -706,11 +706,10 @@ Para gerar os arquivos [Exemplo2.html](Exemplo2.html) e
 
 ## Referências
 
-
-* [knitr in a nutshell](http://kbroman.org/knitr_knutshell)
 * [Dynamic Documents with R and knitr](http://www.amazon.com/dp/1498716962/ref=cm_sw_su_dp)
+* [knitr in a nutshell](http://kbroman.org/knitr_knutshell)
 * [Report Writing for Data Science in R](https://leanpub.com/reportwriting)
-* 
+ 
 
 
 <!-- links -->
