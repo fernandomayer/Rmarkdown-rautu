@@ -1,0 +1,455 @@
+---
+output:
+  knitrBootstrap::bootstrap_document:
+    title: "Documentos com R Markdown"
+    theme: Spacelab
+    highlight: Zenburn
+    theme.chooser: TRUE
+    highlight.chooser: TRUE
+    menu: FALSE
+---
+
+<center>
+<h1>
+R Markdown
+</h1>
+<h3>
+São Paulo R Users Group
+</h3>
+<h3>
+IME/USP, 18 de setembro de 2015
+</h3>
+<h6>
+<a href="http://www.meetup.com/pt/useR-SP/">http://www.meetup.com/pt/useR-SP/</a>
+</h6>
+</center>
+<br><br>
+<p style="display: flex; justify-content: space-between; line-height: 0.75;">
+<span>
+<a href="http://www.leg.ufpr.br/~fernandomayer">Fernando de Pol Mayer</a>
+</span>
+<span>
+<a href="http://www.ufpr.br/portalufpr/">Universidade Federal do
+Paraná</a>
+</span>
+<p style="display: flex; justify-content: space-between; line-height: 0.75;">
+<!-- <span> -->
+<!-- <a href="http://www.coordest.ufpr.br/">Curso de Graduação em Estatística</a> -->
+<!-- </span> -->
+<span>
+<a href="http://www.leg.ufpr.br">Lab. de Estatística e Geoinformação - LEG</a>
+</span>
+<!-- <span> -->
+<!-- <p align="right", style="line-height: 0.75;"> -->
+<!-- </span> -->
+<a href="http://www.est.ufpr.br">Departamento de Estatística</a>
+</p>
+
+
+```{r setup, include=FALSE}
+opts_chunk$set(comment = NA,
+               bootstrap.panel = TRUE)
+```
+
+## Como a ciência funciona
+
+* Replicação
+	- Muitas vezes difícil
+* Reproducibilidade
+	- Mais fácil. O mínimo de qualquer pesquisa é ser reprodutível 
+* Elementos da reproducibilidade:
+	1. Dados
+	2. Código
+	3. Documentação
+	4. Distribuição
+
+## Pesquisa reprodutível
+
+> *The source code is real*
+>
+> > ESS Project
+
+Pseudo-código para escrever um artigo ou relatório científico:
+
+```{r, bootstrap.show.code = FALSE, results="asis", eval=FALSE}
+1. Importe uma base de dados para um *software*
+2. Execute um procedimento analítico
+3. Gere tabelas e figuras separadamente
+4. Copie os resultados de análises
+5. Coloque tudo isso em um editor de texto e escreva o documento
+```
+
+Mudou alguma linha na base de dados? Esqueceu de algo? Volte para o item
+(1) e repita o processo (e boa sorte)!
+
+Pseudo-código para escrever um artigo ou relatório científico
+**reprodutível**:
+
+```{r, bootstrap.show.code = FALSE, results="asis", eval=FALSE}
+1. Use o R Markdown e realize os 5 passos acima em um único documento
+```
+
+Mudou alguma linha na base de dados? Esqueceu de algo? Altere o código e
+gere um novo documento.
+
+* Dessa forma, um documento pode ser gerado dinamicamente a partir de um
+  **código-fonte**.
+* Da mesma forma que um *software* possui seu código-fonte, um documento
+  dinâmico é o código-fonte de um relatório.
+* É uma combinação de código de computador e as correspondentes
+  narrativas descrevendo o resultado que o código está gerando (números,
+  tabelas, figuras, ...).
+* Quando **compilamos** o documento dinâmico, o código de computador é
+  executado, e as saídas são apresentadas. Portanto obtemos um documento
+  final que mistura **código** e **texto**.
+* Como gerenciamos apenas o código-fonte do documento, ficamos livres de
+  todas as etapas manuais mencionadas acima.
+
+## Literate Programming
+
+> *Instead of imagining that our main task is to instruct a computer what
+> to do, let us concentrate rather on explaining to humans what we want
+> the computer to do.*
+>
+> > Donald Knuth
+
+O ideia básica por trás de documentos dinâmicos decorre diretamente do
+conceito de *literate programming* ("programação letrada"), um paradigma
+concebido por [Donald Knuth][] em 1984.
+
+<table>
+<tr>
+<td align="center"><img src="img/knuth.jpg" height="50%"></td>
+<td align="center"><img src="img/Literate_Programming_book_cover.jpg" height="55%"></td>
+</tr>
+</table>
+
+* O conceito é o de misturar **literatura** (o texto em uma
+  linguagem humana) com **códigos de programação**, tornando claro cada
+  etapa de um programa e/ou análise
+* Com um único código-fonte, podemos
+	- Produzir documentos para humanos (HTML, PDF, ...) &rArr; *weave*
+	- Produzir documentos para máquinas (código) &rArr; *tangle*
+* Knuth criou um sistema chamado **WEB** para fazer essa mistura
+  dos seus textos em $TeX$ com a linguagem Pascal 
+* Atualmente muitos outros sistemas existem para misturar códigos
+  com texto em várias linguagens
+
+## Literate Programming no R
+
+Com a ascensão do R no início dos anos 2000, [Friedrich Leisch][] criou
+o [Sweave][] em 2002
+
+* S + weave
+* Permite "entrelaçar" textos do $LaTeX$ com códigos do R
+* Ainda é muito utilizado e já é distribuído como uma função do R
+  dentro do pacote `utils`
+
+No final de 2011, [Yihui Xie][] criou o pacote [knitr][] com
+a proposta de ser mais flexível, fácil e **preparado para a Web**
+
+> *knitr = Sweave + cacheSweave + pgfSweave + weaver +
+>     animation::saveLatex + R2HTML::RweaveHTML +
+>    highlight::HighlightWeaveLatex + 0.2 * brew + 0.1 *
+>    SweaveListingUtils + more*
+
+* knit + R
+* Uma re-implementação mais moderna do Sweave
+* Permite "entrelaçar" textos do $LaTeX$, HTML e **Markdown** com
+  códigos do R
+* Também permite misturar texto com códigos de outras linguagens:
+  Python, awk, C++, shell.
+* Adiciona muitas facilidades como
+	- Cache
+	- Decoração e formatação automática de códigos
+	- Geração de gráficos mais direta
+
+## O que é Markdown?
+
+> *Markdown is a text-to-HTML conversion tool for web writers. Markdown
+> allows you to write using an easy-to-read, easy-to-write plain text
+> format, then convert it to structurally valid XHTML (or HTML).*
+>
+> > John Gruber
+
+* [Markdown][] é uma [linguagem de marcação] simples para escrever
+  textos
+* O texto pode ser lido sem nenhum processamento, ou seja, da maneira
+  como está escrito
+* Outras linguagens de marcação como HTML e $LaTeX$ requerem um grande
+  número de *tags* para formatar o texto, muitas vezes dificultando a
+  leitura do código-fonte
+* A proposta do Markdown é que o escritor se concentre no texto e não na
+  formatação
+* Pode ser convertido para vários outros formatos além de HTML
+
+### Sintaxe do Markdown
+
+A sintaxe do Markdown é muito simples, e pode ser resumida da seguinte
+forma:
+
+#### Cabeçalhos
+
+```
+# Título
+## Sub-título
+### Sub-sub-título
+```
+
+#### Itálico
+
+```
+*Este texto aparecerá em itálico.*
+```
+
+*Este texto aparecerá em itálico.*
+
+#### Negrito
+
+```
+**Este texto aparecerá em negrito.**
+```
+
+**Este texto aparecerá em negrito.**
+
+#### Listas não-ordenadas
+
+```
+- Primeiro item
+- Segundo item
+- Terceiro item
+```
+
+- Primeiro item
+- Segundo item
+- Terceiro item
+
+#### Listas ordenadas
+
+```
+1. Primeiro item
+2. Segundo item
+3. Terceiro item
+```
+
+1. Primeiro item
+2. Segundo item
+3. Terceiro item
+
+#### Sub-listas
+
+Utilize 4 espaços para criar uma sub-lista:
+
+```
+1. Primeiro item
+	- Um sub-item
+    - Outro sub-item
+2. Segundo item
+3. Terceiro item
+```
+
+1. Primeiro item
+    - Um sub-item
+    - Outro sub-item
+2. Segundo item
+3. Terceiro item
+
+#### Links
+
+Links para endereços Web podem ser inseridos com `[texto](link)`:
+
+```
+O criador do conceito de "literate programming" foi
+[Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth).
+```
+
+O criador do conceito de "literate programming" foi
+[Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth).
+
+```
+Devemos instalar o pacote [knitr](http://yihui.name/knitr) para poder
+usar o R Markdown.
+```
+
+Devemos instalar o pacote [knitr](http://yihui.name/knitr) para poder
+usar o R Markdown.
+
+#### Imagens
+
+Para inserir uma imagem, a sintaxe é a mesma de inserir um link, mas com
+uma exclamação (`!`) na frente: `![texto](imagem)`.
+
+O link para a imagem pode ser um enderço Web:
+
+```
+![Logo do R](http://developer.r-project.org/Logo/Rlogo-5.png)
+```
+
+![Logo do R](http://developer.r-project.org/Logo/Rlogo-5.png)
+
+Ou um endereço local:
+
+```
+![Logo do Markdown](img/markdown.png)
+```
+
+![Logo do Markdown](img/markdown.png)
+
+#### Parágrafo
+
+Para criar parágrafos basta pular uma linha:
+
+```
+O criador do conceito de "literate programming" foi
+[Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth).
+
+Devemos instalar o pacote [knitr](http://yihui.name/knitr) para poder
+usar o R Markdown.
+```
+
+O criador do conceito de "literate programming" foi
+[Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth).
+
+Devemos instalar o pacote [knitr](http://yihui.name/knitr) para poder
+usar o R Markdown.
+
+#### Códigos
+
+Para apresentar códigos na própria linha, colocamos o texto entre duas
+crases (` ` `):
+
+```
+Para gerar números aleatórios de uma distribuição normal no R, use a
+função `rnorm()`.
+```
+
+Para gerar números aleatórios de uma distribuição normal no R, use a
+função `rnorm()`.
+
+Para apresentar blocos de código, coloque o texto entre três crases
+seguidas (` ``` `) no início e no final:
+
+    ```
+	x <- rnorm(n = 10, mean = 100, sd = 5)
+	hist(x, main = "")
+    ```
+
+```
+x <- rnorm(n = 10, mean = 100, sd = 5)
+hist(x, main = "")
+```
+
+Note que esse código não será interpretado, ele apenas será mostrado no
+texto. Esse será o papel do R aqui!
+
+#### Tabelas
+
+Tabelas podem ser escritas da seguinte forma:
+
+```
+    Caracter | Permissão
+    ---------|----------
+    `r`      | Permissão de leitura (*read*)
+    `w`      | Permissão de escrita (*write*)
+    `x`      | Permissão de execução (*execute*)
+    `-`      | Permissão desabilitada
+```
+
+Para gerar o seguinte resultado:
+
+Caracter | Permissão
+---------|----------
+`r`      | Permissão de leitura (*read*)
+`w`      | Permissão de escrita (*write*)
+`x`      | Permissão de execução (*execute*)
+`-`      | Permissão desabilitada
+
+#### Equações matemáticas
+
+Equações matemáticas podem ser escritas em formato $LaTeX$. A página
+HTML resultante irá remderizar as equações através do [MathJax][].
+
+Equações na própria linha podem ser inseridas entre `$`:
+
+```
+Um modelo de regressão linear simples:  $Y = \beta_0 + \beta_1 x + \epsilon$.
+```
+
+Um modelo de regressão linear simples: $Y = \beta_0 + \beta_1 x +
+\epsilon$.
+
+Equações podem ser exibidas entre `$$`:
+
+```
+$$
+f(x;\mu,\sigma^2) = \frac{1}{\sigma\sqrt{2\pi}} 
+e^{ -\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2 }
+$$
+```
+
+$$
+f(x;\mu,\sigma^2) = \frac{1}{\sigma\sqrt{2\pi}} 
+e^{ -\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2 }
+$$
+
+### Escrevendo um documento em Markdown
+
+Um documento Markdown possui a extensão `.md` (embora não seja a única
+possível).
+
+Veja o arquivo de exemplo [Exemplo.md](Exemplo.md).
+
+Para converter um documento Markdown em HTML é necessário um
+**conversor**.
+
+* O conversor padrão do Markdown é escrito em Perl, e pode ser integrado
+  em diversas ferramentas
+* É aí que entra o PANDOC
+
+Para testar a conversão do documento, copie e cole na página do
+[Dingus][].
+
+## Pandoc
+
+O Pandoc é um conversor extremamente versátil, capaz de converter
+diversos formatos, incluindo Markdown para HTML.
+
+Se o Pandoc estiver instalado no seu sistema é possível converter o
+documento com
+
+```{sh, eval=FALSE}
+pandoc -f markdown -t html Exemplo.md -o Exemplo.html
+```
+
+O pacote `knitr` possui a função `pandoc()` que é um *wrapper* para
+executar o programa `pandoc` no sistema.
+
+```{r, eval=FALSE}
+pandoc(input = "Exemplo.md", format = "html")
+```
+
+Em ambos os casos, o resultado pode ser visualizado ao abrir o arquivo
+[Exemplo.html](Exemplo.html) no navegador.
+
+
+
+
+
+```{r, eval=FALSE}
+#library(knitr)
+#library(knitrBootstrap)
+#library(rmarkdown)
+```
+
+```{r eval=FALSE, include=FALSE}
+## Por que R Markdown?
+## Ciência reproduzível
+## Documentos dinâmicos
+### Por que dinâmicos?
+```
+
+<!-- links -->
+
+[Donald Knuth]: https://en.wikipedia.org/wiki/Donald_Knuth
+[MathJax]: http://www.mathjax.org
+[Dingus]: http://daringfireball.net/projects/markdown/dingus

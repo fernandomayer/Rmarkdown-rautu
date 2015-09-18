@@ -1,0 +1,48 @@
+<h1 id="um-documento-em-markdown">Um documento em Markdown</h1>
+<h2 id="sobre-o-markdown">Sobre o Markdown</h2>
+<p>O Markdown Ã© uma linguagem de marcaÃ§Ã£o muito simples, desenvolvida por John Gruber.</p>
+<p>A ideia bÃ¡sica por trÃ¡s da linguagem Ã© fazer com que o escritor se preocupe mais com o <strong>conteÃºdo</strong> do texto do que com a <em>formataÃ§Ã£o</em>.</p>
+<h2 id="mais-um-tãtulo">Mais um tÃ­tulo</h2>
+<p>Aqui vamos tentar descrever uma anÃ¡lise.</p>
+<h3 id="simulando-variãveis-aleatãrias">Simulando variÃ¡veis aleatÃ³rias</h3>
+<p>No R podemos simular valores de uma distribuiÃ§Ã£o normal padrÃ£o atravÃ©s da funÃ§Ã£o <code>rnorm()</code>.</p>
+<p>Seja <span class="math inline"><em>X</em> ∼ N(0, 1)</span>, entÃ£o para gerar 30 valores dessa variÃ¡vel aleatÃ³rio normal, fazemos</p>
+<pre><code>x &lt;- rnorm(30)</code></pre>
+<p>Com o resultado dessa simulaÃ§Ã£o, podemos calcular a mÃ©dia e a variÃ¢ncia dessa VA <span class="math inline"><em>X</em></span> para conferir se o resultado fica prÃ³ximo de 0 e 1, respectivamente.</p>
+<p>TambÃ©m podemos fazer um histograma dessa VA <span class="math inline"><em>X</em></span> simulada</p>
+<pre><code>hist(x)</code></pre>
+<h3 id="anãlise-de-dados">AnÃ¡lise de dados</h3>
+<p>Abaixo tem-se o ajuste do modelo de regressÃ£o linear simples</p>
+<p><br /><span class="math display"><em>Y</em> = <em>β</em><sub>0</sub> + <em>β</em><sub>1</sub><em>x</em> + <em>ϵ</em></span><br /></p>
+<p>para dados de distÃ¢ncia para parada completa de um veÃ­culo em funÃ§Ã£o da velocidade no instante de acionamento dos freios. Esse conjunto de dados estÃ¡ objeto <code>cars</code>.</p>
+<pre><code>## Carrega o conjunto de dados
+data(cars)
+
+## Resumo dos dados
+summary(cars)</code></pre>
+<p>Os parÃ¢metros do modelo linear podem ser obtidos pela funÃ§Ã£o <code>lm()</code></p>
+<pre><code>## Ajuste do modelo
+mod &lt;- lm(dist ~ speed, data = cars)
+## Resumo do modelo
+summary(mod)</code></pre>
+<p>Antes de interpretar o modelo e fazer inferÃªncia, Ã© importante que sejam verificados os pressupostos considerados atravÃ©s da anÃ¡lise dos resÃ­duos.</p>
+<pre><code>par(mfrow = c(2, 2))
+plot(mod)
+par(mfrow = c(1,1))</code></pre>
+<p>Assumindo que o ajuste do modelo estÃ¡ adequado, pode-se obter o grÃ¡fico dos valores preditos sobre o diagrama de dispersÃ£o dos valores observados.</p>
+<pre><code>## Intervalo de valores para prediÃ§Ã£o
+pred &lt;- data.frame(speed = seq(4, 25, by = 0.5))
+## Valores preditos
+ypred &lt;- predict(mod, newdata = pred, interval = &quot;confidence&quot;)
+## Inclui valores preditos no data frame
+pred &lt;- cbind(pred, ypred)</code></pre>
+<p>Agora podemos visualizar o modelo ajustado aos dados</p>
+<pre><code>## GrÃ¡fico de dispersÃ£o
+plot(dist ~ speed, data = cars,
+     xlab = &quot;Velocidade ao acionar os freios&quot;,
+     ylab = &quot;DistÃ¢ncia para parada completa&quot;)
+## Intervalo de prediÃ§Ã£o
+with(pred,
+     matlines(x = speed, y = cbind(fit, lwr, upr),
+              lty = c(1, 2, 2), col = 1))</code></pre>
+<p>A inclinaÃ§Ã£o desse modelo linear Ã© 3.9324088.</p>
