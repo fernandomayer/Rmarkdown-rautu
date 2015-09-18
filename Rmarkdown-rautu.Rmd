@@ -51,9 +51,13 @@ opts_chunk$set(comment = NA,
                bootstrap.panel = TRUE)
 ```
 
-## Prefácio
+## Outline
 
-* Básico, não superficial
+* Mostrar a ideia por trás do uso do R Markdown
+* Mostrar possibilidades
+* Material disponível:
+    - Apresentação: <http://www.leg.ufpr.br/~fernandomayer/useR/Rmarkdown-rautu.html>
+    - Código fonte: <http://git.leg.ufpr.br/fernandomayer/Rmarkdown-rautu>
 
 ## Como a ciência funciona
 
@@ -401,7 +405,7 @@ $$
 Um documento Markdown possui a extensão `.md` (embora não seja a única
 possível).
 
-Veja o arquivo de exemplo [Exemplo.md](Exemplo.md).
+Veja o arquivo de exemplo [Exemplo1.md](Exemplo1.md).
 
 Para converter um documento Markdown em HTML é necessário um
 **conversor**.
@@ -421,35 +425,293 @@ Se o Pandoc estiver instalado no seu sistema (Linux) é possível
 converter o documento com
 
 ```{sh, eval=FALSE}
-pandoc -f markdown -t html Exemplo.md -o Exemplo.html
+pandoc -f markdown -t html Exemplo1.md -o Exemplo1.html
 ```
 
 O pacote `knitr` possui a função `pandoc()` que é um *wrapper* para
 executar o programa `pandoc` no sistema.
 
 ```{r, eval=FALSE}
-pandoc(input = "Exemplo.md", format = "html")
+pandoc(input = "Exemplo1.md", format = "html")
 ```
 
 Em ambos os casos, o resultado pode ser visualizado ao abrir o arquivo
-[Exemplo.html](Exemplo.html) no navegador.
+[Exemplo1.html](Exemplo1.html) no navegador.
 
+## Usando o knitr com Markdown
 
+No exemplo anterior, escrevemos um documento em Markdown (`.md`) e
+inserimos códigos do R, que são apenas apresentados no documento final.
 
+Agora vamos usar o knitr a nosso favor, fazedo com que ele interprete e
+retorne resultados dos códigos que inserimos.
 
+Para isso renomeie a extensão do arquivo de `.md` para `.Rmd`.
+
+Os blocos de códigos (ou *chunks*) agora devem conter uma marcação
+especial para indicar que devem ser interpretados pelo R. Para isso,
+colocamos `{r}` no início de cada bloco, que agora ficam
+
+    ```{r}`r ''`
+    x <- rnorm(n = 10, mean = 100, sd = 5)
+    hist(x, main = "")
+    ```
+
+Usando o mesmo exemplo anterior, vamos renomear o arquivo `Exemplo1.md`
+para `Exemplo1-knitr.Rmd` e incluir a marção `{r}`.
+
+Também é possível colocar códigos do R para serem renderizados na
+própria linha com `` `r '\x60r \x60'` ``, por exemplo, `` `r '\x60r
+2+2\x60'` `` gera o resultado `r 2+2` no documento.
+
+Veja o arquivo [Exemplo1-knitr.Rmd](Exemplo1-knitr.Rmd). Agora usamos o
+knitr, através da função `knit()` para compilar o documento `.Rmd` em um
+documento com sintaxe Markdown `.md`
 
 ```{r, eval=FALSE}
-#library(knitr)
-#library(knitrBootstrap)
-#library(rmarkdown)
+knit("Exemplo1-knitr.Rmd")
+```
+<table>
+<tr>
+<td align="center"><img src="img/knit.svg" height="50%"></td>
+</tr>
+</table>
+
+O resultado da compilação pode ser vista no arquivo
+[Exemplo1-knitr.md](Exemplo1-knitr.md). 
+
+Agora temos um documento em Markdown com os códigos do R avaliados. Mas
+ainda precisamos processar esse arquivo para gerar o arquivo `.html`
+através do Pandoc
+
+```{r, eval=FALSE}
+pandoc(input = "Exemplo1-knitr.md", format = "html")
 ```
 
-```{r eval=FALSE, include=FALSE}
-## Por que R Markdown?
-## Ciência reproduzível
-## Documentos dinâmicos
-### Por que dinâmicos?
+que gera o arquivo [Exemplo1-knitr.html](Exemplo1-knitr.html) que poder
+ser visualizado no navegador.
+
+## Usando o R Markdown
+
+Para facilitar a conversão de arquivos `.Rmd` em `.html`, usamos o
+pacote [rmarkdown][], através da função `render()`.
+
+A função `render()` é uma *wrapper* que internamente chama a
+`knitr::knit()` e posteriormente converte o documento para `.html`
+usando o Pandoc.
+
+A vantagem de usar a `rmarkdown::render()` é que ela possui uma série de
+opções que facilitam a conversão de documentos além de já renderizar
+páginas HTML mais amigáveis (atrvés de arquivos CSS).
+
+Para usar esse função você precisa:
+
+1. Instalar o pacote `rmarkdown` com `install.packages("rmarkdown")`
+2. Instalar o Pandoc no seu sistema
+
+No RStudio, esse pacote já vem instalado, assim como uma versão embutida
+do Pandoc.
+
+Usando o exemplo anterior, vamos compilar o arquivo
+[Exemplo1-knitr.Rmd](Exemplo1-knitr.Rmd) com
+
+```{r, eval=FALSE}
+## Carrega o pacote
+library(rmarkdown)
+render("Exemplo1-knitr.Rmd")
 ```
+
+<table>
+<tr>
+<td align="center"><img src="img/split_apply_combine.svg" height="50%"></td>
+</tr>
+</table>
+
+E o resultado pode ser visto no arquivo
+[Exemplo1-knitr.html](Exemplo1-knitr.html).
+
+No RStudio, esse processo todo pode ser feito pelo botão
+<kbd>Knit<kbd>.
+
+## Convertendo R Markdown para outros formatos
+
+Por padrão, a função `render()` gera um arquivo `.html` mas existem
+outros formatos finais possíveis graças ao **Pandoc**.
+
+A chamada anterior é equivalente a 
+
+```{r, eval=FALSE}
+render("Exemplo1-knitr.Rmd", output_format = "html_document")
+```
+
+O pacote `rmarkdown` possui uma sério de formatos de saída, que posuem
+os sufixos `_document` para documentos, e `_presentation` para
+apresentações (slides). Alguns deles:
+
+* Documentos:
+    - `html_document`
+    - `pdf_document`
+    - `word_document`
+* Apresentações:
+    - `ioslides_presentation`
+    - `slidy_presentation`
+    - `beamer_presentation`
+
+Podemos converter um documento em R Markdown para PDF com
+
+```{r, eval=FALSE}
+render("Exemplo1-knitr.Rmd", output_format = "pdf_document")
+
+```
+
+O resultado é o arquivo [Exemplo1-knitr.pdf](Exemplo1-knitr.pdf). A
+função `render()` usa o Pandoc para converter Markdown para $LaTeX$, e
+depois para PDF.
+
+Um documento do Word pode ser gerado com
+
+```{r eval=FALSE}
+render("Exemplo1-knitr.Rmd", output_format = "word_document")
+```
+
+Para gerar [Exemplo1-knitr.docx](Exemplo1-knitr.docx).
+
+Apresentações em slides HTML podem ser geradas em diversos formatos, um
+deles é o `ioslides`
+
+```{r, eval=FALSE}
+render("Exemplo1-knitr.Rmd", output_format = "ioslides_presentation",
+       output_file = "Exemplo1-knitr-ioslides.html")
+```
+
+Veja o resultado em
+[Exemplo1-knitr-ioslides.html](Exemplo1-knitr-ioslides.html). 
+
+Apresentações em beamer
+
+```{r, eval=FALSE}
+render("Exemplo1-knitr.Rmd", output_format = "beamer_presentation",
+       output_file = "Exemplo1-knitr-beamer.pdf")
+```
+
+Com resultado no arquivo
+[Exemplo1-knitr-beamer.pdf](Exemplo1-knitr-beamer.pdf).
+
+## Metadados
+
+Uma opção interessante ao utilizar o Pandoc é incluir metados no formato
+[YAML][].
+
+Os metadados em YAML são escritos em formato de lista aninhada, e o
+Pandoc usa essas informações para incluir, por exemplo, título, autor, e
+data em um documento.
+
+A opção mais importante para o `rmarkdown` é o campo `output`, que
+permite especificar o formato desejado de saída, o mesmo especificado no
+argumento `output_format =` da função `render()`.
+
+Os metadados em YAML são colocados sempre no **início** de um documento,
+e são delimitados por `---`. Exemplo típico:
+
+```
+---
+title: "Meu documento em R Markdown"
+author: "Fernando Mayer"
+date: 18 de setembro, 2015
+output: html_document
+---
+```
+
+Veja o arquivo [Exemplo1-yaml.Rmd](Exemplo1-yaml.Rmd).
+
+Com isso, não é mais necessário especificar o argumento `output_format
+=` na chamada da função `render()`.
+
+Também é possível incluir vários formatos ao mesmo tempo, por exemplo
+
+```
+---
+title: "Meu documento em R Markdown"
+author: "Fernando Mayer"
+date: 18 de setembro, 2015
+output:
+  html_document: default
+  pdf_document: default
+---
+```
+
+E compilar todos eles ao mesmo tempo com
+
+```{r, eval=FALSE}
+render("Exemplo1-yaml.Rmd", output_format = "all")
+```
+
+Veja [Exemplo1-yaml.html](Exemplo1-yaml.html), e
+[Exemplo1-yaml.pdf](Exemplo1-yaml.pdf).
+
+## Opções do knitr
+
+Todas as opções do knitr para controlar a saída dos resultados de
+códigos do R são válidas para o R Markdown.
+
+* Para afetar um único *chunk*, coloque as opções individualmente
+<pre><code>```{r, opt1=val1, opt2=val2}
+# código
+```</code></pre>
+* Para afetar **todos** os *chunks* de um documento, use a função
+`knitr::opts_chunk$set()`:
+<pre><code>```{r, echo=FALSE}
+knitr::opts_chunk$set(opt1 = val1,
+                      opt2 = val2
+)
+```</code></pre>
+
+As opções mais importantes são
+
+* `eval = FALSE` para não avaliar o código, apenas mostrar
+* `echo = FALSE` para não mostrar o código, apenas as saídas
+* `results = "hide"` para não mostrar as saídas
+* `results = "asis"` para que o resultado seja tratado como texto
+  literal em Markdown. Por exemplo, para gerar uma tabela a partir de um
+  objeto do R, podemos usar a função `knitr::kable()`
+<pre><code>```{r, results="asis"}
+kable(head(iris))
+```</code></pre>
+
+```{r, results="asis", echo=FALSE}
+kable(head(iris))
+```
+* `warning = FALSE` e `message = FALSE` para suprimir as mensagens de
+  aviso
+* `fig.width = 5` and `fig.height = 5` para alterar o tamanho dos
+  gráficos gerados pelo R (em polegadas)
+* `cache = TRUE` para armazenar os resultados 
+
+A lista completa de opções está em <http://yihui.name/knitr/options>.
+
+## Um exemplo mais interessante
+
+Para um exemplo mais completo veja o arquivo
+[Exemplo2.Rmd](Exemplo2.Rmd).
+
+Note que nos metadados YAML temos mais opções para cada formato de
+saída. Para compilar esse documento, podemos usar
+
+```{r, eval=FALSE}
+render("Exemplo2.Rmd", output_format = "all")
+```
+
+Para gerar os arquivos [Exemplo2.html](Exemplo2.html) e
+[Exemplo2.pdf](Exemplo2.pdf).
+
+## Referências
+
+
+* [knitr in a nutshell](http://kbroman.org/knitr_knutshell)
+* [Dynamic Documents with R and knitr](http://www.amazon.com/dp/1498716962/ref=cm_sw_su_dp)
+* [Report Writing for Data Science in R](https://leanpub.com/reportwriting)
+* 
+
 
 <!-- links -->
 

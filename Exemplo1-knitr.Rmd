@@ -20,17 +20,21 @@ da função `rnorm()`.
 Seja $X \sim \text{N}(0,1)$, então para gerar 30 valores dessa variável
 aleatório normal, fazemos
 
-```
+```{r}
 (x <- rnorm(30))
 ```
+
+## Comentários
 
 Com o resultado dessa simulação, podemos calcular a média e a variância
 dessa VA $X$ para conferir se o resultado fica próximo de 0 e 1,
 respectivamente.
 
+## Visualização
+
 Também podemos fazer um histograma dessa VA $X$ simulada
 
-```
+```{r}
 hist(x)
 ```
 

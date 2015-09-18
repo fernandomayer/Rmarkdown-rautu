@@ -891,10 +891,15 @@ IME/USP, 18 de setembro de 2015
 <!-- </span> -->
 <span> <a href="http://www.leg.ufpr.br">Lab. de Estatística e Geoinformação - LEG</a> </span> <!-- <span> --> <!-- <p align="right", style="line-height: 0.75;"> --> <!-- </span> --> <a href="http://www.est.ufpr.br">Departamento de Estatística</a>
 </p>
-<h2 id="prefácio">Prefácio</h2>
-<h3 id="objetivos">Objetivos</h3>
+<h2 id="outline">Outline</h2>
 <ul>
-<li>Básico, não superficial</li>
+<li>Mostrar a ideia por trás do uso do R Markdown</li>
+<li>Mostrar possibilidades</li>
+<li>Material disponível:
+<ul>
+<li>Apresentação: <a href="http://www.leg.ufpr.br/~fernandomayer/useR/Rmarkdown-rautu.html" class="uri">http://www.leg.ufpr.br/~fernandomayer/useR/Rmarkdown-rautu.html</a></li>
+<li>Código fonte: <a href="http://git.leg.ufpr.br/fernandomayer/Rmarkdown-rautu" class="uri">http://git.leg.ufpr.br/fernandomayer/Rmarkdown-rautu</a></li>
+</ul></li>
 </ul>
 <h2 id="como-a-ciência-funciona">Como a ciência funciona</h2>
 <ul>
@@ -1156,16 +1161,13 @@ e^{ -\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2 }
 $$</span><br /></p>
 <h3 id="escrevendo-um-documento-em-markdown">Escrevendo um documento em Markdown</h3>
 <p>Um documento Markdown possui a extensão <code>.md</code> (embora não seja a única possível).</p>
-<p>Veja o arquivo de exemplo <a href="Exemplo.md" class="uri">Exemplo.md</a>.</p>
+<p>Veja o arquivo de exemplo <a href="Exemplo1.md" class="uri">Exemplo1.md</a>.</p>
 <p>Para converter um documento Markdown em HTML é necessário um <strong>conversor</strong>.</p>
-<ul>
-<li>O conversor padrão do Markdown é escrito em Perl, e pode ser integrado em diversas ferramentas</li>
-<li>É aí que entra o PANDOC</li>
-</ul>
+<p>O conversor padrão do Markdown é escrito em Perl, e pode ser integrado em diversas ferramentas, mas não é apropriado para usuários comuns.</p>
 <p>Para testar a conversão do documento, copie e cole na página do <a href="http://daringfireball.net/projects/markdown/dingus&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;">Dingus</a>.</p>
 <h2 id="pandoc">Pandoc</h2>
-<p>O Pandoc é um conversor extremamente versátil, capaz de converter diversos formatos, incluindo Markdown para HTML.</p>
-<p>Se o Pandoc estiver instalado no seu sistema é possível converter o documento com</p>
+<p>O <a href="#pandoc">Pandoc</a> é um conversor extremamente versátil, capaz de converter diversos formatos, incluindo Markdown para HTML.</p>
+<p>Se o Pandoc estiver instalado no seu sistema (Linux) é possível converter o documento com</p>
 <div class="row">
 <div class="panel panel-primary">
 <div class="source sh panel-heading toggle">
@@ -1173,7 +1175,7 @@ $$</span><br /></p>
 <span class="glyphicon glyphicon-chevron-down"></span> sh source
 </h5>
 </div>
-<pre style=""><code class="source sh">pandoc -f markdown -t html Exemplo.md -o Exemplo.html</code></pre>
+<pre style=""><code class="source sh">pandoc -f markdown -t html Exemplo1.md -o Exemplo1.html</code></pre>
 </div>
 </div>
 <p>O pacote <code>knitr</code> possui a função <code>pandoc()</code> que é um <em>wrapper</em> para executar o programa <code>pandoc</code> no sistema.</p>
@@ -1184,10 +1186,22 @@ $$</span><br /></p>
 <span class="glyphicon glyphicon-chevron-down"></span> R source
 </h5>
 </div>
-<pre style=""><code class="source r">pandoc(input = "Exemplo.md", format = "html")</code></pre>
+<pre style=""><code class="source r">pandoc(input = "Exemplo1.md", format = "html")</code></pre>
 </div>
 </div>
-<p>Em ambos os casos, o resultado pode ser visualizado ao abrir o arquivo <a href="Exemplo.html" class="uri">Exemplo.html</a> no navegador.</p>
+<p>Em ambos os casos, o resultado pode ser visualizado ao abrir o arquivo <a href="Exemplo1.html" class="uri">Exemplo1.html</a> no navegador.</p>
+<h2 id="usando-o-knitr-com-markdown">Usando o knitr com Markdown</h2>
+<p>No exemplo anterior, escrevemos um documento em Markdown (<code>.md</code>) e inserimos códigos do R, que são apenas apresentados no documento final.</p>
+<p>Agora vamos usar o knitr a nosso favor, fazedo com que ele interprete e retorne resultados dos códigos que inserimos.</p>
+<p>Para isso renomeie a extensão do arquivo de <code>.md</code> para <code>.Rmd</code>.</p>
+<p>Os blocos de códigos (ou <em>chunks</em>) agora devem conter uma marcação especial para indicar que devem ser interpretados pelo R. Para isso, colocamos <code>{r}</code> no início de cada bloco, que agora ficam</p>
+<pre><code>```{r}
+x &lt;- rnorm(n = 10, mean = 100, sd = 5)
+hist(x, main = &quot;&quot;)
+```</code></pre>
+<p>Usando o mesmo exemplo anterior, vamos renomear o arquivo <code>Exemplo1.md</code> para <code>Exemplo1-knitr.Rmd</code> e incluir a marção <code>{r}</code>.</p>
+<p>Também é possível colocar códigos do R para serem renderizados na própria linha com <code>`r `</code>, por exemplo, <code>`r 2+2`</code> gera o resultado 4 no documento.</p>
+<p>Veja o arquivo <a href="Exemplo1-knitr.Rmd" class="uri">Exemplo1-knitr.Rmd</a>. Agora usamos o knitr, através da função <code>knit()</code> para compilar o documento <code>.Rmd</code> em um documento com sintaxe Markdown <code>.md</code></p>
 <div class="row">
 <div class="panel panel-primary">
 <div class="source R panel-heading toggle">
@@ -1195,11 +1209,281 @@ $$</span><br /></p>
 <span class="glyphicon glyphicon-chevron-down"></span> R source
 </h5>
 </div>
-<pre style=""><code class="source r">#library(knitr)
-#library(knitrBootstrap)
-#library(rmarkdown)</code></pre>
+<pre style=""><code class="source r">knit("Exemplo1-knitr.Rmd")</code></pre>
 </div>
 </div>
+<table>
+<tr>
+<td align="center">
+<img src="img/knit.svg" height="50%">
+</td>
+</tr>
+</table>
+<p>O resultado da compilação pode ser vista no arquivo <a href="Exemplo1-knitr.md" class="uri">Exemplo1-knitr.md</a>.</p>
+<p>Agora temos um documento em Markdown com os códigos do R avaliados. Mas ainda precisamos processar esse arquivo para gerar o arquivo <code>.html</code> através do Pandoc</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">pandoc(input = "Exemplo1-knitr.md", format = "html")</code></pre>
+</div>
+</div>
+<p>que gera o arquivo <a href="Exemplo1-knitr.html" class="uri">Exemplo1-knitr.html</a> que poder ser visualizado no navegador.</p>
+<h2 id="usando-o-r-markdown">Usando o R Markdown</h2>
+<p>Para facilitar a conversão de arquivos <code>.Rmd</code> em <code>.html</code>, usamos o pacote [rmarkdown][], através da função <code>render()</code>.</p>
+<p>A função <code>render()</code> é uma <em>wrapper</em> que internamente chama a <code>knitr::knit()</code> e posteriormente converte o documento para <code>.html</code> usando o Pandoc.</p>
+<p>A vantagem de usar a <code>rmarkdown::render()</code> é que ela possui uma série de opções que facilitam a conversão de documentos além de já renderizar páginas HTML mais amigáveis (atrvés de arquivos CSS).</p>
+<p>Para usar esse função você precisa:</p>
+<ol style="list-style-type: decimal">
+<li>Instalar o pacote <code>rmarkdown</code> com <code>install.packages(&quot;rmarkdown&quot;)</code></li>
+<li>Instalar o Pandoc no seu sistema</li>
+</ol>
+<p>No RStudio, esse pacote já vem instalado, assim como uma versão embutida do Pandoc.</p>
+<p>Usando o exemplo anterior, vamos compilar o arquivo <a href="Exemplo1-knitr.Rmd" class="uri">Exemplo1-knitr.Rmd</a> com</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">## Carrega o pacote
+library(rmarkdown)
+render("Exemplo1-knitr.Rmd")</code></pre>
+</div>
+</div>
+<table>
+<tr>
+<td align="center">
+<img src="img/split_apply_combine.svg" height="50%">
+</td>
+</tr>
+</table>
+<p>E o resultado pode ser visto no arquivo <a href="Exemplo1-knitr.html" class="uri">Exemplo1-knitr.html</a>.</p>
+<p>No RStudio, esse processo todo pode ser feito pelo botão <kbd>Knit<kbd>.</p>
+<h2 id="convertendo-r-markdown-para-outros-formatos">Convertendo R Markdown para outros formatos</h2>
+<p>Por padrão, a função <code>render()</code> gera um arquivo <code>.html</code> mas existem outros formatos finais possíveis graças ao <strong>Pandoc</strong>.</p>
+<p>A chamada anterior é equivalente a</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">render("Exemplo1-knitr.Rmd", output_format = "html_document")</code></pre>
+</div>
+</div>
+<p>O pacote <code>rmarkdown</code> possui uma sério de formatos de saída, que posuem os sufixos <code>_document</code> para documentos, e <code>_presentation</code> para apresentações (slides). Alguns deles:</p>
+<ul>
+<li>Documentos:
+<ul>
+<li><code>html_document</code></li>
+<li><code>pdf_document</code></li>
+<li><code>word_document</code></li>
+</ul></li>
+<li>Apresentações:
+<ul>
+<li><code>ioslides_presentation</code></li>
+<li><code>slidy_presentation</code></li>
+<li><code>beamer_presentation</code></li>
+</ul></li>
+</ul>
+<p>Podemos converter um documento em R Markdown para PDF com</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">render("Exemplo1-knitr.Rmd", output_format = "pdf_document")</code></pre>
+</div>
+</div>
+<p>O resultado é o arquivo <a href="Exemplo1-knitr.pdf" class="uri">Exemplo1-knitr.pdf</a>. A função <code>render()</code> usa o Pandoc para converter Markdown para <span class="math inline"><em>L</em><em>a</em><em>T</em><em>e</em><em>X</em></span>, e depois para PDF.</p>
+<p>Um documento do Word pode ser gerado com</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">render("Exemplo1-knitr.Rmd", output_format = "word_document")</code></pre>
+</div>
+</div>
+<p>Para gerar <a href="Exemplo1-knitr.docx" class="uri">Exemplo1-knitr.docx</a>.</p>
+<p>Apresentações em slides HTML podem ser geradas em diversos formatos, um deles é o <code>ioslides</code></p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">render("Exemplo1-knitr.Rmd", output_format = "ioslides_presentation",
+       output_file = "Exemplo1-knitr-ioslides.html")</code></pre>
+</div>
+</div>
+<p>Veja o resultado em <a href="Exemplo1-knitr-ioslides.html" class="uri">Exemplo1-knitr-ioslides.html</a>.</p>
+<p>Apresentações em beamer</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">render("Exemplo1-knitr.Rmd", output_format = "beamer_presentation",
+       output_file = "Exemplo1-knitr-beamer.pdf")</code></pre>
+</div>
+</div>
+<p>Com resultado no arquivo <a href="Exemplo1-knitr-beamer.pdf" class="uri">Exemplo1-knitr-beamer.pdf</a>.</p>
+<h2 id="metadados">Metadados</h2>
+<p>Uma opção interessante ao utilizar o Pandoc é incluir metados no formato [YAML][].</p>
+<p>Os metadados em YAML são escritos em formato de lista aninhada, e o Pandoc usa essas informações para incluir, por exemplo, título, autor, e data em um documento.</p>
+<p>A opção mais importante para o <code>rmarkdown</code> é o campo <code>output</code>, que permite especificar o formato desejado de saída, o mesmo especificado no argumento <code>output_format =</code> da função <code>render()</code>.</p>
+<p>Os metadados em YAML são colocados sempre no <strong>início</strong> de um documento, e são delimitados por <code>---</code>. Exemplo típico:</p>
+<pre><code>---
+title: &quot;Meu documento em R Markdown&quot;
+author: &quot;Fernando Mayer&quot;
+date: 18 de setembro, 2015
+output: html_document
+---</code></pre>
+<p>Veja o arquivo <a href="Exemplo1-yaml.Rmd" class="uri">Exemplo1-yaml.Rmd</a>.</p>
+<p>Com isso, não é mais necessário especificar o argumento <code>output_format =</code> na chamada da função <code>render()</code>.</p>
+<p>Também é possível incluir vários formatos ao mesmo tempo, por exemplo</p>
+<pre><code>---
+title: &quot;Meu documento em R Markdown&quot;
+author: &quot;Fernando Mayer&quot;
+date: 18 de setembro, 2015
+output:
+  html_document: default
+  pdf_document: default
+---</code></pre>
+<p>E compilar todos eles ao mesmo tempo com</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">render("Exemplo1-yaml.Rmd", output_format = "all")</code></pre>
+</div>
+</div>
+<p>Veja <a href="Exemplo1-yaml.html" class="uri">Exemplo1-yaml.html</a>, e <a href="Exemplo1-yaml.pdf" class="uri">Exemplo1-yaml.pdf</a>.</p>
+<h2 id="opções-do-knitr">Opções do knitr</h2>
+<p>Todas as opções do knitr para controlar a saída dos resultados de códigos do R são válidas para o R Markdown.</p>
+<ul>
+<li>Para afetar um único <em>chunk</em>, coloque as opções individualmente
+<pre><code>```{r, opt1=val1, opt2=val2}
+# código
+```</code></pre></li>
+<li>Para afetar <strong>todos</strong> os <em>chunks</em> de um documento, use a função <code>knitr::opts_chunk$set()</code>:
+<pre><code>```{r, echo=FALSE}
+knitr::opts_chunk$set(opt1 = val1,
+                  opt2 = val2
+)
+```</code></pre></li>
+</ul>
+<p>As opções mais importantes são</p>
+<ul>
+<li><code>eval = FALSE</code> para não avaliar o código, apenas mostrar</li>
+<li><code>echo = FALSE</code> para não mostrar o código, apenas as saídas</li>
+<li><code>results = &quot;hide&quot;</code> para não mostrar as saídas</li>
+<li><code>results = &quot;asis&quot;</code> para que o resultado seja tratado como texto literal em Markdown. Por exemplo, para gerar uma tabela a partir de um objeto do R, podemos usar a função <code>knitr::kable()</code>
+<pre><code>```{r, results="asis"}
+kable(head(iris))
+```</code></pre></li>
+</ul>
+<div class="row">
+<table>
+<thead>
+<tr class="header">
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="left">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.1</td>
+<td align="right">3.5</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.9</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.7</td>
+<td align="right">3.2</td>
+<td align="right">1.3</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.6</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">5.0</td>
+<td align="right">3.6</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">5.4</td>
+<td align="right">3.9</td>
+<td align="right">1.7</td>
+<td align="right">0.4</td>
+<td align="left">setosa</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>warning = FALSE</code> e <code>message = FALSE</code> para suprimir as mensagens de aviso</li>
+<li><code>fig.width = 5</code> and <code>fig.height = 5</code> para alterar o tamanho dos gráficos gerados pelo R (em polegadas)</li>
+<li><code>cache = TRUE</code> para armazenar os resultados</li>
+</ul>
+<p>A lista completa de opções está em <a href="http://yihui.name/knitr/options" class="uri">http://yihui.name/knitr/options</a>.</p>
+<h2 id="um-exemplo-mais-interessante">Um exemplo mais interessante</h2>
+<p>Para um exemplo mais completo veja o arquivo <a href="Exemplo2.Rmd" class="uri">Exemplo2.Rmd</a>.</p>
+<p>Note que nos metadados YAML temos mais opções para cada formato de saída. Para compilar esse documento, podemos usar</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">render("Exemplo2.Rmd", output_format = "all")</code></pre>
+</div>
+</div>
+<p>Para gerar os arquivos <a href="Exemplo2.html" class="uri">Exemplo2.html</a> e <a href="Exemplo2.pdf" class="uri">Exemplo2.pdf</a>.</p>
+<h2 id="referências">Referências</h2>
+<ul>
+<li><a href="http://kbroman.org/knitr_knutshell">knitr in a nutshell</a></li>
+<li><a href="http://www.amazon.com/dp/1498716962/ref=cm_sw_su_dp">Dynamic Documents with R and knitr</a></li>
+<li><a href="https://leanpub.com/reportwriting">Report Writing for Data Science in R</a></li>
+<li></li>
+</ul>
 <!-- links -->
 <div id="push">
 

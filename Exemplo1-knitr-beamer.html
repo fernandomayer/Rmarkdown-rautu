@@ -1,0 +1,65 @@
+\section{Um documento em Markdown}\label{um-documento-em-markdown}
+
+\begin{frame}{Sobre o Markdown}
+
+O Markdown é uma linguagem de marcação muito simples, desenvolvida por
+John Gruber.
+
+A ideia básica por trás da linguagem é fazer com que o escritor se
+preocupe mais com o \textbf{conteúdo} do texto do que com a
+\emph{formatação}.
+
+\end{frame}
+
+\begin{frame}{Mais um título}
+
+Aqui vamos tentar descrever uma análise.
+
+\end{frame}
+
+\begin{frame}[fragile]{Simulando variáveis aleatórias}
+
+No R podemos simular valores de uma distribuição normal padrão através
+da função \texttt{rnorm()}.
+
+Seja \(X \sim \text{N}(0,1)\), então para gerar 30 valores dessa
+variável aleatório normal, fazemos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(x <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{30}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] -0.81851844 -1.18567122  0.54810777  1.72170587 -1.40872426
+##  [6] -1.13348436  0.24041792  0.86840023 -0.20085022  0.61385047
+## [11] -0.63815942 -0.74207360  1.15238433 -1.06180940  0.19337116
+## [16]  1.29357993  0.58709405  0.91370018 -0.23978580 -0.40091449
+## [21]  0.03769192 -0.25000431  1.61112199  0.92833750 -0.54712216
+## [26]  1.52534943 -1.30807715  0.26336533 -0.55764016  0.13447603
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}{Comentários}
+
+Com o resultado dessa simulação, podemos calcular a média e a variância
+dessa VA \(X\) para conferir se o resultado fica próximo de 0 e 1,
+respectivamente.
+
+\end{frame}
+
+\begin{frame}[fragile]{Visualização}
+
+Também podemos fazer um histograma dessa VA \(X\) simulada
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Exemplo1-knitr-beamer_files/figure-beamer/unnamed-chunk-2-1.pdf}
+
+\end{frame}
