@@ -718,3 +718,4 @@ Para gerar os arquivos [Exemplo2.html](Exemplo2.html) e
 [MathJax]: http://www.mathjax.org
 [Dingus]: http://daringfireball.net/projects/markdown/dingus
 [Markdown]: http://daringfireball.net/projects/markdown
+[rmarkdown]: http://rmarkdown.rstudio.com
