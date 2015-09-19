@@ -721,3 +721,4 @@ Para gerar os arquivos [Exemplo2.html](Exemplo2.html) e
 [rmarkdown]: http://rmarkdown.rstudio.com
 [Friedrich Leisch]: http://www.statistik.lmu.de/~leisch
 [Sweave]: https://www.statistik.lmu.de/~leisch/Sweave
+[YAML]: http://yaml.org
