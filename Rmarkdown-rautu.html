@@ -990,7 +990,7 @@ IME/USP, 18 de setembro de 2015
 <li>Atualmente muitos outros sistemas existem para misturar códigos com texto em várias linguagens</li>
 </ul>
 <h2 id="literate-programming-no-r">Literate Programming no R</h2>
-<p>Com a ascensão do R no início dos anos 2000, [Friedrich Leisch][] criou o [Sweave][] em 2002</p>
+<p>Com a ascensão do R no início dos anos 2000, <a href="http://www.statistik.lmu.de/~leisch">Friedrich Leisch</a> criou o <a href="https://www.statistik.lmu.de/~leisch/Sweave">Sweave</a> em 2002</p>
 <ul>
 <li>S + weave</li>
 <li>Permite &quot;entrelaçar&quot; textos do <span class="math inline"><em>L</em><em>a</em><em>T</em><em>e</em><em>X</em></span> com códigos do R</li>
@@ -1020,7 +1020,7 @@ IME/USP, 18 de setembro de 2015
 </blockquote>
 </blockquote>
 <ul>
-<li>[Markdown][] é uma [linguagem de marcação] simples para escrever textos</li>
+<li><a href="http://daringfireball.net/projects/markdown">Markdown</a> é uma [linguagem de marcação] simples para escrever textos</li>
 <li>O texto pode ser lido sem nenhum processamento, ou seja, da maneira como está escrito</li>
 <li>Outras linguagens de marcação como HTML e <span class="math inline"><em>L</em><em>a</em><em>T</em><em>e</em><em>X</em></span> requerem um grande número de <em>tags</em> para formatar o texto, muitas vezes dificultando a leitura do código-fonte</li>
 <li>A proposta do Markdown é que o escritor se concentre no texto e não na formatação</li>
@@ -1164,7 +1164,7 @@ $$</span><br /></p>
 <p>Veja o arquivo de exemplo <a href="Exemplo1.md" class="uri">Exemplo1.md</a>.</p>
 <p>Para converter um documento Markdown em HTML é necessário um <strong>conversor</strong>.</p>
 <p>O conversor padrão do Markdown é escrito em Perl, e pode ser integrado em diversas ferramentas, mas não é apropriado para usuários comuns.</p>
-<p>Para testar a conversão do documento, copie e cole na página do <a href="http://daringfireball.net/projects/markdown/dingus&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;">Dingus</a>.</p>
+<p>Para testar a conversão do documento, copie e cole na página do <a href="http://daringfireball.net/projects/markdown/dingus">Dingus</a>.</p>
 <h2 id="pandoc">Pandoc</h2>
 <p>O <a href="#pandoc">Pandoc</a> é um conversor extremamente versátil, capaz de converter diversos formatos, incluindo Markdown para HTML.</p>
 <p>Se o Pandoc estiver instalado no seu sistema (Linux) é possível converter o documento com</p>
@@ -1233,7 +1233,7 @@ hist(x, main = &quot;&quot;)
 </div>
 <p>que gera o arquivo <a href="Exemplo1-knitr.html" class="uri">Exemplo1-knitr.html</a> que poder ser visualizado no navegador.</p>
 <h2 id="usando-o-r-markdown">Usando o R Markdown</h2>
-<p>Para facilitar a conversão de arquivos <code>.Rmd</code> em <code>.html</code>, usamos o pacote [rmarkdown][], através da função <code>render()</code>.</p>
+<p>Para facilitar a conversão de arquivos <code>.Rmd</code> em <code>.html</code>, usamos o pacote <a href="http://rmarkdown.rstudio.com">rmarkdown</a>, através da função <code>render()</code>.</p>
 <p>A função <code>render()</code> é uma <em>wrapper</em> que internamente chama a <code>knitr::knit()</code> e posteriormente converte o documento para <code>.html</code> usando o Pandoc.</p>
 <p>A vantagem de usar a <code>rmarkdown::render()</code> é que ela possui uma série de opções que facilitam a conversão de documentos além de já renderizar páginas HTML mais amigáveis (atrvés de arquivos CSS).</p>
 <p>Para usar esse função você precisa:</p>
@@ -1343,7 +1343,7 @@ render("Exemplo1-knitr.Rmd")</code></pre>
 </div>
 <p>Com resultado no arquivo <a href="Exemplo1-knitr-beamer.pdf" class="uri">Exemplo1-knitr-beamer.pdf</a>.</p>
 <h2 id="metadados">Metadados</h2>
-<p>Uma opção interessante ao utilizar o Pandoc é incluir metados no formato [YAML][].</p>
+<p>Uma opção interessante ao utilizar o Pandoc é incluir metados no formato <a href="http://yaml.org&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;">YAML</a>.</p>
 <p>Os metadados em YAML são escritos em formato de lista aninhada, e o Pandoc usa essas informações para incluir, por exemplo, título, autor, e data em um documento.</p>
 <p>A opção mais importante para o <code>rmarkdown</code> é o campo <code>output</code>, que permite especificar o formato desejado de saída, o mesmo especificado no argumento <code>output_format =</code> da função <code>render()</code>.</p>
 <p>Os metadados em YAML são colocados sempre no <strong>início</strong> de um documento, e são delimitados por <code>---</code>. Exemplo típico:</p>
