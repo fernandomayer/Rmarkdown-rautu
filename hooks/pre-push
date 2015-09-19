@@ -2,12 +2,24 @@
 
 FILE="Rmarkdown-rautu.html"
 
-CHANGE=$(git diff "HEAD@{1}" --name-only | grep $FILE)
+CHANGEF=$(git diff "HEAD@{1}" --name-only | grep $FILE)
  
-if [[ "$CHANGE" = "$FILE" ]]; then
+if [[ "$CHANGEF" = "$FILE" ]]; then
     echo
     echo Sending $FILE to specified server
     echo
     scp -P $PATAXOP $FILE fernandomayer@$PATAXO:~/public_html/useR
+    echo
+fi
+
+DIR="img"
+
+CHANGED=$(git diff "HEAD@{1}" --name-only | grep $DIR | cut -f1 -d"/")
+ 
+if [[ "$CHANGED" = "$DIR" ]]; then
+    echo
+    echo Sending files from $DIR to specified server
+    echo
+    scp -P $PATAXOP -r $DIR fernandomayer@$PATAXO:~/public_html/useR
     echo
 fi
