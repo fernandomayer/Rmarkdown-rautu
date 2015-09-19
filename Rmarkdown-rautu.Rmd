@@ -722,3 +722,5 @@ Para gerar os arquivos [Exemplo2.html](Exemplo2.html) e
 [Friedrich Leisch]: http://www.statistik.lmu.de/~leisch
 [Sweave]: https://www.statistik.lmu.de/~leisch/Sweave
 [YAML]: http://yaml.org
+[Yihui Xie]: http://yihui.name/
+[knitr]: http://yihui.name/knitr
