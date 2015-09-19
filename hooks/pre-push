@@ -8,6 +8,6 @@ if [[ "$CHANGE" = "$FILE" ]]; then
     echo
     echo Sending $FILE to specified server
     echo
-    scp -P $PATAXOP $FILE fernandomayer@$PATAXO:~/public_html/img
+    scp -P $PATAXOP $FILE fernandomayer@$PATAXO:~/public_html/useR
     echo
 fi
