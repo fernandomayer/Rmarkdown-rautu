@@ -719,3 +719,5 @@ Para gerar os arquivos [Exemplo2.html](Exemplo2.html) e
 [Dingus]: http://daringfireball.net/projects/markdown/dingus
 [Markdown]: http://daringfireball.net/projects/markdown
 [rmarkdown]: http://rmarkdown.rstudio.com
+[Friedrich Leisch]: http://www.statistik.lmu.de/~leisch
+[Sweave]: https://www.statistik.lmu.de/~leisch/Sweave
