@@ -180,7 +180,7 @@ a proposta de ser mais flexível, fácil e **preparado para a Web**
 >
 > > John Gruber
 
-* [Markdown][] é uma [linguagem de marcação] simples para escrever
+* [Markdown][] é uma [linguagem de marcação][] simples para escrever
   textos
 * O texto pode ser lido sem nenhum processamento, ou seja, da maneira
   como está escrito
@@ -488,7 +488,7 @@ através do Pandoc
 pandoc(input = "Exemplo1-knitr.md", format = "html")
 ```
 
-que gera o arquivo [Exemplo1-knitr.html](Exemplo1-knitr.html) que poder
+que gera o arquivo [Exemplo1-knitr.html](Exemplo1-knitr.html) que pode
 ser visualizado no navegador.
 
 ## Usando o R Markdown
@@ -544,7 +544,7 @@ A chamada anterior é equivalente a
 render("Exemplo1-knitr.Rmd", output_format = "html_document")
 ```
 
-O pacote `rmarkdown` possui uma sério de formatos de saída, que posuem
+O pacote `rmarkdown` possui uma série de formatos de saída, que possuem
 os sufixos `_document` para documentos, e `_presentation` para
 apresentações (slides). Alguns deles:
 
@@ -706,6 +706,7 @@ Para gerar os arquivos [Exemplo2.html](Exemplo2.html) e
 
 ## Referências
 
+* [Best Practices for Scientific Computing](http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745)
 * [Dynamic Documents with R and knitr](http://www.amazon.com/dp/1498716962/ref=cm_sw_su_dp)
 * [Knitr in a nutshell](http://kbroman.org/knitr_knutshell)
 * [Report Writing for Data Science in R](https://leanpub.com/reportwriting)
@@ -725,3 +726,5 @@ Para gerar os arquivos [Exemplo2.html](Exemplo2.html) e
 [Yihui Xie]: http://yihui.name/
 [knitr]: http://yihui.name/knitr
 [Pandoc]: http://pandoc.org/
+[YAML]: http://yaml.org/
+[linguagem de marcação]: https://pt.wikipedia.org/wiki/Linguagem_de_marcação/

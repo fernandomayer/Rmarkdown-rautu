@@ -1020,7 +1020,7 @@ IME/USP, 18 de setembro de 2015
 </blockquote>
 </blockquote>
 <ul>
-<li><a href="http://daringfireball.net/projects/markdown">Markdown</a> é uma [linguagem de marcação] simples para escrever textos</li>
+<li><a href="http://daringfireball.net/projects/markdown">Markdown</a> é uma <a href="https://pt.wikipedia.org/wiki/Linguagem_de_marcação/&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;">linguagem de marcação</a> simples para escrever textos</li>
 <li>O texto pode ser lido sem nenhum processamento, ou seja, da maneira como está escrito</li>
 <li>Outras linguagens de marcação como HTML e <span class="math inline"><em>L</em><em>a</em><em>T</em><em>e</em><em>X</em></span> requerem um grande número de <em>tags</em> para formatar o texto, muitas vezes dificultando a leitura do código-fonte</li>
 <li>A proposta do Markdown é que o escritor se concentre no texto e não na formatação</li>
@@ -1166,7 +1166,7 @@ $$</span><br /></p>
 <p>O conversor padrão do Markdown é escrito em Perl, e pode ser integrado em diversas ferramentas, mas não é apropriado para usuários comuns.</p>
 <p>Para testar a conversão do documento, copie e cole na página do <a href="http://daringfireball.net/projects/markdown/dingus">Dingus</a>.</p>
 <h2 id="pandoc">Pandoc</h2>
-<p>O <a href="http://pandoc.org/&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;">Pandoc</a> é um conversor extremamente versátil, capaz de converter diversos formatos, incluindo Markdown para HTML.</p>
+<p>O <a href="http://pandoc.org/">Pandoc</a> é um conversor extremamente versátil, capaz de converter diversos formatos, incluindo Markdown para HTML.</p>
 <p>Se o Pandoc estiver instalado no seu sistema (Linux) é possível converter o documento com</p>
 <div class="row">
 <div class="panel panel-primary">
@@ -1231,7 +1231,7 @@ hist(x, main = &quot;&quot;)
 <pre style=""><code class="source r">pandoc(input = "Exemplo1-knitr.md", format = "html")</code></pre>
 </div>
 </div>
-<p>que gera o arquivo <a href="Exemplo1-knitr.html" class="uri">Exemplo1-knitr.html</a> que poder ser visualizado no navegador.</p>
+<p>que gera o arquivo <a href="Exemplo1-knitr.html" class="uri">Exemplo1-knitr.html</a> que pode ser visualizado no navegador.</p>
 <h2 id="usando-o-r-markdown">Usando o R Markdown</h2>
 <p>Para facilitar a conversão de arquivos <code>.Rmd</code> em <code>.html</code>, usamos o pacote <a href="http://rmarkdown.rstudio.com">rmarkdown</a>, através da função <code>render()</code>.</p>
 <p>A função <code>render()</code> é uma <em>wrapper</em> que internamente chama a <code>knitr::knit()</code> e posteriormente converte o documento para <code>.html</code> usando o Pandoc.</p>
@@ -1277,7 +1277,7 @@ render("Exemplo1-knitr.Rmd")</code></pre>
 <pre style=""><code class="source r">render("Exemplo1-knitr.Rmd", output_format = "html_document")</code></pre>
 </div>
 </div>
-<p>O pacote <code>rmarkdown</code> possui uma sério de formatos de saída, que posuem os sufixos <code>_document</code> para documentos, e <code>_presentation</code> para apresentações (slides). Alguns deles:</p>
+<p>O pacote <code>rmarkdown</code> possui uma série de formatos de saída, que possuem os sufixos <code>_document</code> para documentos, e <code>_presentation</code> para apresentações (slides). Alguns deles:</p>
 <ul>
 <li>Documentos:
 <ul>
@@ -1343,7 +1343,7 @@ render("Exemplo1-knitr.Rmd")</code></pre>
 </div>
 <p>Com resultado no arquivo <a href="Exemplo1-knitr-beamer.pdf" class="uri">Exemplo1-knitr-beamer.pdf</a>.</p>
 <h2 id="metadados">Metadados</h2>
-<p>Uma opção interessante ao utilizar o Pandoc é incluir metados no formato <a href="http://yaml.org">YAML</a>.</p>
+<p>Uma opção interessante ao utilizar o Pandoc é incluir metados no formato <a href="http://yaml.org/">YAML</a>.</p>
 <p>Os metadados em YAML são escritos em formato de lista aninhada, e o Pandoc usa essas informações para incluir, por exemplo, título, autor, e data em um documento.</p>
 <p>A opção mais importante para o <code>rmarkdown</code> é o campo <code>output</code>, que permite especificar o formato desejado de saída, o mesmo especificado no argumento <code>output_format =</code> da função <code>render()</code>.</p>
 <p>Os metadados em YAML são colocados sempre no <strong>início</strong> de um documento, e são delimitados por <code>---</code>. Exemplo típico:</p>
@@ -1479,6 +1479,7 @@ kable(head(iris))
 <p>Para gerar os arquivos <a href="Exemplo2.html" class="uri">Exemplo2.html</a> e <a href="Exemplo2.pdf" class="uri">Exemplo2.pdf</a>.</p>
 <h2 id="referências">Referências</h2>
 <ul>
+<li><a href="http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745">Best Practices for Scientific Computing</a></li>
 <li><a href="http://www.amazon.com/dp/1498716962/ref=cm_sw_su_dp">Dynamic Documents with R and knitr</a></li>
 <li><a href="http://kbroman.org/knitr_knutshell">Knitr in a nutshell</a></li>
 <li><a href="https://leanpub.com/reportwriting">Report Writing for Data Science in R</a></li>
