@@ -1,0 +1,379 @@
+---
+title: "Pesquisa reproduzível com R Markdown"
+author: "Fernando Mayer (LEG/UFPR)"
+date: "26 de Agosto, 2016"
+output:
+  ioslides_presentation:
+    logo: img/leg.png
+---
+
+```{r setup, include=FALSE}
+## source("setup_knitr.R")
+```
+
+# Pesquisa reproduzível
+
+## Introdução
+
+- Evolução da tecnologia: coleta, processamento e análise com bases de
+  dados de alta dimensão
+- Rotinas de análise mais sofisicadas e complexas
+- Como garantir que toda essa informação, e todo esse resultado que vem
+  sendo gerado pode ser confiável?
+- As análises, os modelos e os algoritmos que usamos atualmente são
+  bastante complexos: difícil descrever todos os detalhes em palavras
+- Entender o que alguém fez em uma análise de dados atualmente, requer
+  olhar para o *código*
+
+## *The Duke trial saga*
+
+- Anil Potti *et al*: A Genomic Strategy to Refine Prognosis in
+  Early-Stage Non–Small-Cell Lung Cancer. *The New England Journal of
+  Medicine*. 2006.
+- Prever a evolução do câncer de pulmão de um paciente usando matrizes
+  de expressão
+- Anil Potti *et al*: Genomic signatures to guide the use of
+  chemotherapeutics. *Nature Medicine*. 2006.
+- Utilização de "linhas de células", para prever a quimioterapia mais
+  eficaz para pacientes que sofrem de câncer de pulmão, mama ou de
+  ovário
+
+## *The Duke trial saga*
+
+- O grupo de Duke iniciou três ensaios clínicos baseados nos trabalhos
+  publicados.
+- Bioestatísticos do *MD Anderson Cancer Centre* tentaram reproduzir os
+  resultados do artigo, com a finalidade de usar a nova técnica.
+- Foram encontradas diversas falhas como linhas de células com nomes
+  errados, nomes e números de células inconsistentes, etc.
+- Depois disso, uma série de investigações foram realizadas, levando a
+  cessar os ensaios clínicos já iniciados pela Universidade.
+- Dr. Potti pediu demissão, e depois foi descoberto que ele tinha
+  envolvimento com empresas da área biomédica.
+
+## Análise de dados como arte
+
+> *Ciência é conhecimento que entendemos tão bem que podemos ensiná-la
+> para um computador. Todo o resto é arte.*
+
+> Donald Knuth, 1974
+
+O processo de análise de dados por um pesquisador pode ser comparado ao
+processo de criação de uma música por um músico.
+
+Os métodos já foram ensinados ao computador, cabe ao analista saber como
+juntar as ferramentas e aplicá-las para responder questões relevantes
+para a ciência e para as pessoas.
+
+## Como a ciência funciona
+
+> *A Ciência é um processo de aprendizado da natureza, onde ideias
+> concorrentes sobre como funciona o mundo são medidas contra
+> observações.*
+
+> Richard Feynman, 1965
+
+- Descrições: incompletas
+- Observações: incertas e imprecisas
+- Métodos para avaliar a concordância entre as ideias e as observações =
+  **Estatística** (Stigler, 1986).
+
+## Como a ciência funciona
+
+"Árvore de aprendizado" de Platt (1964) a partir de experimentos
+críticos, denominada **inferência forte** (*strong inference*), e que
+consiste das seguintes etapas:
+
+1. Conceber hipóteses alternativas.
+2. Conceber um experimento crucial (ou vários deles) com possíveis
+   resultados alternativos, onde cada um poderá excluir, dentro do
+   possível, uma ou mais hipóteses.
+3. Realizar o experimento de forma a obter resultados mais confiáveis
+   possíveis.
+4. Reciclar o procedimento, criando subhipóteses ou hipóteses
+   sequenciais para refinar as possibilidades que restam, e assim por
+   diante.
+
+## Como a ciência funciona
+
+Esta visão de Platt é naturalmente uma extensão lógica do trabalho de
+Popper, que revolucionou a filosofia da Ciência no século 20, ao
+argumentar que uma hipótese *não pode ser provada*, apenas *desprovada*.
+
+A essência do método Popperiano é "desafiar" uma hipótese repetidamente.
+Se a hipótese permanece válida então ela não é validada, mas adquire um
+certo "grau de confiança", que na prática passa a ser tratada como
+verdadeira.
+
+## Como a ciência funciona
+
+Coincidindo com esta filosofia de Popper está o trabalho
+estatístico de **Ronald Fisher**, **Karl Pearson**, **Jerzy Neyman** e
+outros, que desenvolveram grande parte da teoria estatística atual
+associada à "testes de hipótese".
+
+## Replicação e reprodução na Ciência
+
+A **replicação** é um dos pilares fundamentais da ciência.
+
+É necessário que diversos cientistas coletem e analisem dados de forma
+independente, e cheguem no mesmo resultado.
+
+Se muitas pessoas diferentes chegarem à mesma conclusão de forma
+independente, então tendemos a pensar que a relação ou resultado
+provavelmente é verdadeiro (que vai de encontro com a filosofia de
+Popper).
+
+## Replicação e reprodução na Ciência
+
+Hoje em dia, a replicação tem se tornado cada vez mais desafiadora:
+
+- Estudos maiores e mais caros
+- Disponibilidade de recursos financeiros para pesquisas cada vez mais
+  escassa
+
+## Replicação e reprodução na Ciência
+
+Além disso, existem estudos que dificilmente podem ser replicados:
+
+- Avaliação do impacto de um terremoto em um determinado local
+- Evolução do crescimento de uma floresta
+- Estudo clínico que acompanhou as reações de pacientes à um medicamento
+  durante 20 anos
+
+## Replicação e reprodução na Ciência
+
+Existem muitas boas razões pelas quais não podemos replicar um estudo.
+
+Se replicar não é possível, então existem duas opções:
+
+- Não fazer nada (não é uma opção na verdade)
+- Reproduzir a pesquisa.
+
+A ideia é criar uma espécie de **padrão mínimo**, ou um *meio-termo*
+entre replicar um estudo e não fazer nada.
+
+## Replicação e reprodução na Ciência
+
+Uma parte fundamental da **pesquisa reproduzível** é tornar disponíveis
+**dados** e **métodos computacionais** (em forma de código).
+
+# Se reproduzir uma análise leva à um resultado já conhecido e esperado,então qual o propósito de uma pesquisa reproduzível? {.small}
+
+## Replicação e reprodução na Ciência
+
+- Validação da análise de dados
+- Diferentes cientistas, com diferentes visões e ideias podem colaborar
+  no sentido de continuar a pesquisa, ou sugerir outras abordagens
+- Novas possibilidades para novas perguntas
+- Acelerar a geração de conhecimento
+
+## Replicação e reprodução na Ciência
+
+- A revista *Science* teve uma edição inteira dedicada à
+  reproducibilidade.
+- Muitas revistas científicas tem atualizado suas políticas de
+  publicação, para encorajar a reproducibilidade dos artigos publicados.
+
+    - Biostatistics
+    - *Public Library of Science* (PLoS)
+
+## Replicação e reprodução na Ciência
+
+Preocupações:
+
+- Como fica a questão da propriedade intelectual?
+- Como fica a disponibilização de dados que foram coletados com
+  financiamento privado ou público?
+- Até que ponto a disponibilização dos dados não irá prejudicar meus
+  projetos futuros?
+- Será que não posso sofrer plágio?
+
+
+Cientistas estão preocupados em fazer pesquisa reproduzível, mas mesmo
+na PLoS, **cerca de 60% das publicações não disponibilizam dados
+suficientes**.
+
+## Elementos da reproducibilidade
+
+Quatro elementos principais:
+
+1. **Dados**: Os dados utilizados na análise devem ser disponibilizados
+   *da maneira como foram analisados originalmente*.
+2. **Código**: O código utilizado para produzir os resultados
+   apresentados.
+3. **Documentação**: Descrever o **código** e os **dados** utilizados na
+   análise de maneira clara.
+4. **Distribuição**: Distribuir todos esses elementos de maneira que
+   sejam facilmente acessíveis.
+
+## Boas práticas para a computação científica
+
+Estudos recentes tem mostrado que cientistas passam cerca de 30% de seu
+tempo escrevendo códigos.
+
+No entanto, mais de 90% deles são primariamente *auto-didatas*, e portanto
+carecem de exposição à boas práticas de desenvolvimento de *software*
+como:
+
+- escrever códigos de fácil manutenção
+- usar um *sistema de controle de versões*
+- rastreadores de *bugs*
+- testes unitários
+- automação de tarefas.
+
+## Boas práticas para a computação científica
+
+1. Escreva programas para humanos, não para computadores
+2. Deixe o computador fazer o trabalho
+3. Faça alterações incrementais
+4. Não repita você mesmo (ou outros)
+5. Prepare-se para erros
+6. Otimize código apenas depois que ele funcionar
+7. Documente a ideia e o propósito, não a mecânica
+8. Colabore
+
+## Ferramentas da reproducibilidade
+
+Publicar dados e códigos não é necessariamente uma tarefa trivial.
+
+Problemas comuns:
+
+- Muitos autores simplesmente "colocam" arquivos na *web*.
+- Existem jornais que disponibilizam materiais suplementares, mas que
+  sabidamente são desorganizados ou falhos.
+- Mesmo quando dados e códigos estão disponíveis, o leitor ainda tem que
+  baixar dados e códigos, e então tentar juntar tudo (altamente
+  desencorajador)
+- O leitor pode não ter os mesmos recursos computacionais que o
+  autor.
+
+## Ferramentas da reproducibilidade
+
+Por isso, a proposta de distribuir dados e códigos **documentados** de
+uma pesquisa científica, de maneira acessível e auto-contida.
+
+O **R** possui ferramentas para gerar documentos de análise (dinâmicos),
+auto-contidos (em formato de pacote ou arquivos simples).
+
+Dessa forma, para reproduzir uma pesquisa é necessário apenas executar
+um arquivo (ou instalar um pacote no R) para reproduzir uma análise.
+
+## Ferramentas da reproducibilidade
+
+Benefícios:
+
+- Os dados e os códigos são disponibilizados conjuntamente
+- As análises podem ser documentadas em forma de **documentos dinâmicos**
+- Eventuais funções que forem criadas para uma análise específica também
+  já estão disponíveis
+- A compatibilidade das análises entre sistemas operacionais é aumentada
+
+# R Markdown
+
+## O que já foi visto
+
+Na
+[apresentação](http://www.leg.ufpr.br/~fernandomayer/useR/Rmarkdown-rautu.html)
+do dia 18/09/2015:
+
+- *Literate Programming*
+- *Literate Programming no R*
+    - Sweave
+    - knitr
+- Markdown
+- Pandoc
+
+## O que já foi visto
+
+knitr com Markdown
+
+![](img/knit.svg)
+
+## O que já foi visto
+
+R Markdown
+
+![](img/split_apply_combine.svg)
+
+## O que já foi visto
+
+- Convertendo R Markdown para outros formatos
+- Metadados (YAML)
+- Opções do knitr
+
+## O que há de novo
+
+- Possibilidade de aprimorar as páginas com Bootstrap
+- Referências bibliográficas
+- Sites inteiros em R Markdown
+
+## Aprimorando as páginas
+
+Adicionando índice e número de seção
+```
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+    number_sections: true
+```
+
+## Aprimorando as páginas
+
+Alterando exibição de código
+```
+output:
+  html_document:
+    code_folding: hide
+```
+
+## Aprimorando as páginas
+
+Alterando temas com Bootstrap
+```
+output:
+  html_document:
+    theme: journal
+```
+
+Os temas podem ser escolhidos entre os disponíveis em
+http://bootswatch.com/
+
+## Referências bibliográficas
+
+É possível adicionar referências bibliográficas a documentos em R
+Markdown nativamente (graças ao Pandoc) usando o mesmo padrão do LaTeX
+(arquivos BibTeX)
+```
+bibliography: referencias.bib
+```
+
+Para criar uma citação use a sintaxe `[@id]` onde `id` é o identificador
+da referência.
+
+Para citações *in-line* use apenas `@id`.
+
+Quando o documento for compilado, uma lista com as referências
+utilizadas será incluida ao final do documento. No entanto, não há um
+título automático, por isso é comum incluir `# Referências` no final.
+
+## Referências bibliográficas
+
+Exemplos
+```
+Separe multiplas citações com `;`, por exemplo
+[@Buckland2004; @DeValpine2004].
+
+Você pode adicionar comentários arbitrários dentro do colchetes, como
+por exemplo [veja @Durbin1997, pp. 33-35; e @Kitagawa1987, cap. 1].
+
+Remova os colchetes para criar citações no texto com @Lele2007, ou
+@Meinhold2016 [p. 5].
+```
+
+## Sites com R Markdown
+
+Você pode criar sites inteiros com R Markdown, contendo todo o material
+necessário para uma **pesquisa reproduzível**.
