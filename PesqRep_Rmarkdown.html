@@ -442,7 +442,43 @@ Remova os colchetes para criar citações no texto com @Lele2007, ou
 
 </article></slide><slide class=''><hgroup><h2>Sites com R Markdown</h2></hgroup><article  id="sites-com-r-markdown">
 
-<p>Você pode criar sites inteiros com R Markdown, contendo todo o material necessário para uma <strong>pesquisa reproduzível</strong>.</p></article></slide>
+<p>Você pode criar sites inteiros com R Markdown, contendo todo o material necessário para uma <strong>pesquisa reproduzível</strong>.</p>
+
+<p>O site pode conter diversas páginas com documentos em R Markdown, além dos dados e demais arquivos necessários.</p>
+
+<p>Facilidade na hora da distribuição e divulgação da pesquisa.</p>
+
+</article></slide><slide class=''><hgroup><h2>Sites com R Markdown</h2></hgroup><article  id="sites-com-r-markdown-1">
+
+<p>Apenas dois arquivos necessários</p>
+
+<p><code>_site.yml</code></p>
+
+<pre >name: &quot;Site&quot;
+navbar:
+  title: &quot;Meu site&quot;
+  left:
+    - text: &quot;Home&quot;
+      href: index.html</pre>
+
+<p><code>index.Rmd</code></p>
+
+<pre >---
+title: &quot;Meu site&quot;
+---
+
+Esta é a página inicial do meu site.</pre>
+
+</article></slide><slide class=''><hgroup><h2>Sites com R Markdown</h2></hgroup><article  id="sites-com-r-markdown-2">
+
+<p>Para um exemplo simples veja</p>
+
+<ul>
+<li><a href='https://github.com/fernandomayer/pesqrep' title=''>https://github.com/fernandomayer/pesqrep</a></li>
+<li><a href='https://fernandomayer.github.io/pesqrep/' title=''>https://fernandomayer.github.io/pesqrep/</a></li>
+</ul>
+
+<p>O GitHub funciona tanto como um repositório para os arquivos, quanto como um <strong>servidor</strong> <em>gratuito</em> para hospedar o site.</p></article></slide>
 
 
   <slide class="backdrop"></slide>

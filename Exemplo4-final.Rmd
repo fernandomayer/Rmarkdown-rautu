@@ -10,6 +10,7 @@ output:
     number_sections: true
     code_folding: hide
     theme: journal
+bibliography: referencias.bib
 ---
 
 ```{r, echo=FALSE}
@@ -107,3 +108,14 @@ with(pred,
 
 O parâmetro $\beta_1$ desse modelo de regressão linear simples é
 `r coef(mod)[2]`.
+
+Separe multiplas citações com `;`, por exemplo
+[@Buckland2004; @DeValpine2004].
+
+Você pode adicionar comentários arbitrários dentro do colchetes, como
+por exemplo [veja @Durbin1997, pp. 33-35; e @Kitagawa1987, cap. 1].
+
+Remova os colchetes para criar citações no texto com @Lele2007, ou
+@Meinhold2016 [p. 5].
+
+# Referências

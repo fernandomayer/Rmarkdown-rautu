@@ -377,3 +377,41 @@ Remova os colchetes para criar citações no texto com @Lele2007, ou
 
 Você pode criar sites inteiros com R Markdown, contendo todo o material
 necessário para uma **pesquisa reproduzível**.
+
+O site pode conter diversas páginas com documentos em R Markdown, além
+dos dados e demais arquivos necessários.
+
+Facilidade na hora da distribuição e divulgação da pesquisa.
+
+## Sites com R Markdown
+
+Apenas dois arquivos necessários
+
+`_site.yml`
+```
+name: "Site"
+navbar:
+  title: "Meu site"
+  left:
+    - text: "Home"
+      href: index.html
+```
+
+`index.Rmd`
+```
+---
+title: "Meu site"
+---
+
+Esta é a página inicial do meu site.
+```
+
+## Sites com R Markdown
+
+Para um exemplo simples veja
+
+- https://github.com/fernandomayer/pesqrep
+- https://fernandomayer.github.io/pesqrep/
+
+O GitHub funciona tanto como um repositório para os arquivos, quanto
+como um **servidor** *gratuito* para hospedar o site.
