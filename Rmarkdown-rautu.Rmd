@@ -1,54 +1,9 @@
 ---
-output:
-  knitrBootstrap::bootstrap_document:
-    title: "Documentos com R Markdown"
-    theme: Spacelab
-    highlight: Zenburn
-    theme.chooser: TRUE
-    highlight.chooser: TRUE
-    menu: FALSE
+title: "Rmarkdown-rautu"
 ---
 
-<center>
-<h1>
-R Markdown
-</h1>
-<h3>
-São Paulo R Users Group
-</h3>
-<h3>
-IME/USP, 18 de setembro de 2015
-</h3>
-<h6>
-<a href="http://www.meetup.com/pt/useR-SP/">http://www.meetup.com/pt/useR-SP/</a>
-</h6>
-</center>
-<br><br>
-<p style="display: flex; justify-content: space-between; line-height: 0.75;">
-<span>
-<a href="http://www.leg.ufpr.br/~fernandomayer">Fernando de Pol Mayer</a>
-</span>
-<span>
-<a href="http://www.ufpr.br/portalufpr/">Universidade Federal do
-Paraná</a>
-</span>
-<p style="display: flex; justify-content: space-between; line-height: 0.75;">
-<!-- <span> -->
-<!-- <a href="http://www.coordest.ufpr.br/">Curso de Graduação em Estatística</a> -->
-<!-- </span> -->
-<span>
-<a href="http://www.leg.ufpr.br">Lab. de Estatística e Geoinformação - LEG</a>
-</span>
-<!-- <span> -->
-<!-- <p align="right", style="line-height: 0.75;"> -->
-<!-- </span> -->
-<a href="http://www.est.ufpr.br">Departamento de Estatística</a>
-</p>
-
-
 ```{r setup, include=FALSE}
-opts_chunk$set(comment = NA,
-               bootstrap.panel = TRUE)
+knitr::opts_chunk$set(comment = NA)
 ```
 
 ## Outline
@@ -62,14 +17,14 @@ opts_chunk$set(comment = NA,
 ## Como a ciência funciona
 
 * Replicação
-	- Muitas vezes difícil
+    - Muitas vezes difícil
 * Reproducibilidade
-	- Mais fácil. O mínimo de qualquer pesquisa é ser reprodutível 
+    - Mais fácil. O mínimo de qualquer pesquisa é ser reprodutível
 * Elementos da reproducibilidade:
-	1. Dados
-	2. Código
-	3. Documentação
-	4. Distribuição
+    1. Dados
+    2. Código
+    3. Documentação
+    4. Distribuição
 
 ## Pesquisa reprodutível
 
@@ -79,7 +34,7 @@ opts_chunk$set(comment = NA,
 
 Pseudo-código para escrever um artigo ou relatório científico:
 
-```{r, bootstrap.show.code = FALSE, results="asis", eval=FALSE}
+```{r, results="asis", eval=FALSE}
 1. Importe uma base de dados para um *software*
 2. Execute um procedimento analítico
 3. Gere tabelas e figuras separadamente
@@ -93,7 +48,7 @@ Mudou alguma linha na base de dados? Esqueceu de algo? Volte para o item
 Pseudo-código para escrever um artigo ou relatório científico
 **reprodutível**:
 
-```{r, bootstrap.show.code = FALSE, results="asis", eval=FALSE}
+```{r, results="asis", eval=FALSE}
 1. Use o R Markdown e realize os 5 passos acima em um único documento
 ```
 
@@ -139,7 +94,7 @@ concebido por [Donald Knuth][] em 1984.
 	- Produzir documentos para humanos (HTML, PDF, ...) &rArr; *weave*
 	- Produzir documentos para máquinas (código) &rArr; *tangle*
 * Knuth criou um sistema chamado **WEB** para fazer essa mistura
-  dos seus textos em $TeX$ com a linguagem Pascal 
+  dos seus textos em $TeX$ com a linguagem Pascal
 * Atualmente muitos outros sistemas existem para misturar códigos
   com texto em várias linguagens
 
@@ -390,13 +345,13 @@ Equações podem ser exibidas entre `$$`:
 
 ```
 $$
-f(x;\mu,\sigma^2) = \frac{1}{\sigma\sqrt{2\pi}} 
+f(x;\mu,\sigma^2) = \frac{1}{\sigma\sqrt{2\pi}}
 e^{ -\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2 }
 $$
 ```
 
 $$
-f(x;\mu,\sigma^2) = \frac{1}{\sigma\sqrt{2\pi}} 
+f(x;\mu,\sigma^2) = \frac{1}{\sigma\sqrt{2\pi}}
 e^{ -\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2 }
 $$
 
@@ -478,7 +433,7 @@ knit("Exemplo1-knitr.Rmd")
 </table>
 
 O resultado da compilação pode ser vista no arquivo
-[Exemplo1-knitr.md](Exemplo1-knitr.md). 
+[Exemplo1-knitr.md](Exemplo1-knitr.md).
 
 Agora temos um documento em Markdown com os códigos do R avaliados. Mas
 ainda precisamos processar esse arquivo para gerar o arquivo `.html`
@@ -538,7 +493,7 @@ No RStudio, esse processo todo pode ser feito pelo botão
 Por padrão, a função `render()` gera um arquivo `.html` mas existem
 outros formatos finais possíveis graças ao **Pandoc**.
 
-A chamada anterior é equivalente a 
+A chamada anterior é equivalente a
 
 ```{r, eval=FALSE}
 render("Exemplo1-knitr.Rmd", output_format = "html_document")
@@ -585,7 +540,7 @@ render("Exemplo1-knitr.Rmd", output_format = "ioslides_presentation",
 ```
 
 Veja o resultado em
-[Exemplo1-knitr-ioslides.html](Exemplo1-knitr-ioslides.html). 
+[Exemplo1-knitr-ioslides.html](Exemplo1-knitr-ioslides.html).
 
 Apresentações em beamer
 
@@ -675,17 +630,17 @@ As opções mais importantes são
   literal em Markdown. Por exemplo, para gerar uma tabela a partir de um
   objeto do R, podemos usar a função `knitr::kable()`
 <pre><code>```{r, results="asis"}
-kable(head(iris))
+knitr::kable(head(iris))
 ```</code></pre>
 
 ```{r, results="asis", echo=FALSE}
-kable(head(iris))
+knitr::kable(head(iris))
 ```
 * `warning = FALSE` e `message = FALSE` para suprimir as mensagens de
   aviso
 * `fig.width = 5` and `fig.height = 5` para alterar o tamanho dos
   gráficos gerados pelo R (em polegadas)
-* `cache = TRUE` para armazenar os resultados 
+* `cache = TRUE` para armazenar os resultados
 
 A lista completa de opções está em <http://yihui.name/knitr/options>.
 
@@ -710,7 +665,7 @@ Para gerar os arquivos [Exemplo2.html](Exemplo2.html) e
 * [Dynamic Documents with R and knitr](http://www.amazon.com/dp/1498716962/ref=cm_sw_su_dp)
 * [Knitr in a nutshell](http://kbroman.org/knitr_knutshell)
 * [Report Writing for Data Science in R](https://leanpub.com/reportwriting)
- 
+
 
 
 <!-- links -->
