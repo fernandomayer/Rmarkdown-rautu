@@ -22,13 +22,13 @@
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="site_libs/highlight/default.css"
-      type="text/css" />
-<script src="site_libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -155,7 +155,6 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -163,7 +162,9 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 <script>
 $(document).ready(function () {
   window.initializeCodeFolding("show" === "show");
@@ -187,7 +188,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
@@ -337,12 +338,12 @@ div.tocify {
 <p>No R podemos simular valores de uma distribuição normal padrão através da função <code>rnorm()</code>.</p>
 <p>Seja <span class="math inline">\(X \sim \text{N}(0,1)\)</span>, então para gerar 30 valores dessa variável aleatório normal, fazemos</p>
 <pre class="r"><code>(x &lt;- rnorm(30))</code></pre>
-<pre><code>##  [1]  1.47534081  0.85841006  0.62372068  0.03117898  1.41886907
-##  [6]  0.94350231  0.77955022 -0.89311669 -0.08544526 -0.44099429
-## [11] -0.94568677 -0.64261469 -2.06038165 -0.79817215 -1.02831063
-## [16]  0.12454580  1.74202352  0.12999605  0.87945966 -0.81320145
-## [21] -0.87840360 -1.22625342  0.21424755 -0.83072604 -0.01879966
-## [26]  0.97983349 -0.24404793  1.19768261 -4.13578027 -0.24247816</code></pre>
+<pre><code>##  [1]  2.33807858 -1.34959033 -0.42250281  1.95140000 -1.63959154
+##  [6] -0.32135914 -2.30029177  0.49065564  1.54237168 -0.54040122
+## [11]  0.37514704 -0.34597365  0.94105982  0.20877322 -2.00257056
+## [16] -1.20082415 -0.28521537 -0.42227555  0.69978108  1.96816653
+## [21]  0.53648650 -0.87232730  1.07780488 -0.11010534 -1.09619153
+## [26] -0.01677496 -1.57494507  0.04815878  0.58361607  1.31821149</code></pre>
 </div>
 <div id="comentarios" class="section level2">
 <h2>Comentários</h2>
@@ -375,8 +376,11 @@ div.tocify {
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 

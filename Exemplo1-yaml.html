@@ -20,13 +20,12 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="site_libs/highlight/default.css"
-      type="text/css" />
-<script src="site_libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -153,7 +152,6 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -223,12 +221,12 @@ $(document).ready(function () {
 <p>No R podemos simular valores de uma distribuição normal padrão através da função <code>rnorm()</code>.</p>
 <p>Seja <span class="math inline">\(X \sim \text{N}(0,1)\)</span>, então para gerar 30 valores dessa variável aleatório normal, fazemos</p>
 <pre class="r"><code>(x &lt;- rnorm(30))</code></pre>
-<pre><code>##  [1]  0.84209932  1.22819700 -1.13578604  2.20311920 -0.45376332
-##  [6] -0.04221041  0.38771970 -2.09145549 -1.11154403 -0.09209884
-## [11] -1.58007295  0.48801250 -0.74676089  1.20459798  0.48123690
-## [16]  0.65439532 -1.59379687 -0.54503718 -0.72247060 -1.22452755
-## [21] -0.17459522  0.16475517  0.86026554 -0.09136634 -0.68792730
-## [26] -0.19705762 -1.40082056  0.42793524 -0.35897806 -0.58586584</code></pre>
+<pre><code>##  [1] -1.70150524  2.23853229 -1.06123146  1.31266159 -0.70517119
+##  [6] -1.36989329 -1.06468563  0.32530212 -0.26279200 -0.08325737
+## [11]  1.35080621  0.08161545 -0.17356146 -1.60923062 -1.31448125
+## [16]  1.49289310 -0.68251384 -1.40308059 -0.43649004 -0.54556910
+## [21]  0.32095951  1.15442778 -0.83330579  1.04006787 -1.30712887
+## [26] -0.37539680  0.42722750 -1.14985825  0.55590543  1.06424987</code></pre>
 </div>
 <div id="comentarios" class="section level2">
 <h2>Comentários</h2>
@@ -250,8 +248,11 @@ $(document).ready(function () {
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
